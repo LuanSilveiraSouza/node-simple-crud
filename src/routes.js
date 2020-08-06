@@ -1,8 +1,8 @@
 const routes = require('express').Router();
 
-routes.get('/', (req, res) => {
-	res.render('hello');
-});
+const PokemonController = require('./controller/PokemonController');
+
+routes.get('/', PokemonController.list);
 
 //model: abstração das tabelas do BD no código
 //view: visualização que retornaremos (HTML, CSS)
