@@ -6,7 +6,7 @@ class PokemonController {
       if (error) throw error;
       const data = results.rows;
 
-      res.render('hello', {
+      res.render('list', {
         data
       });
     });
