@@ -1,0 +1,34 @@
+<html lang="en">
+<head>
+  <%- include('components/head.ejs') %>
+  <link rel="stylesheet" type="text/css" href="/css/main-style.css">
+  <title>Lista de Mangás</title>
+</head>
+<body>
+  <main>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Titulo</th>
+        <th>Autor</th>
+        <th>Ano de publicação</th>
+        <th>Ações</th>
+      </tr>
+      <% if (data) {%>
+        <% data.forEach(row => { %>
+          <tr>
+            <td><%= row.id %></td>
+            <td><%= row.title %></td>
+            <td><%= row.author %></td>
+            <td><%= row.publish_year.getFullYear() %></td>
+            <td>
+              <button>Editar</button>
+              <button>Remover</button>
+            </td>
+          </tr>
+        <% }) %>
+      <% } %>
+    </table>
+  </main>
+</body>
+</html>
