@@ -6,7 +6,7 @@
 </head>
 <body>
   <main>
-    <form action="/add-manga" method="POST" class="add-manga">
+    <form action="/manga/add" method="POST" class="add-manga">
       <label for="title">Título</label>
       <input type="text" name="title" placeholder="Ex: Dragonball">
 
@@ -32,10 +32,10 @@
             <td><%= row.id %></td>
             <td><%= row.title %></td>
             <td><%= row.author %></td>
-            <td><%= row.publish_year.getMonth() %> <%= row.publish_year.getFullYear() %></td>
+            <td><%= row.publish_year.getMonth() + 1 %> <%= row.publish_year.getFullYear() %></td>
             <td>
               <button>Editar</button>
-              <button>Remover</button>
+              <a href="/manga/delete/<%= row.id %>">Remover</a>
             </td>
           </tr>
         <% }) %>

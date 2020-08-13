@@ -2,7 +2,8 @@ const routes = require('express').Router();
 
 const MangaController = require('./controller/MangaController');
 
-routes.get('/', MangaController.list);
-routes.post('/add-manga', MangaController.create);
+routes.get('/manga', MangaController.list);
+routes.get('/manga/delete/:id', MangaController.remove);
+routes.post('/manga/add', MangaController.create);
 
 module.exports = routes;
