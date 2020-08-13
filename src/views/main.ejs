@@ -6,13 +6,25 @@
 </head>
 <body>
   <main>
+    <form action="/add-manga" method="POST" class="add-manga">
+      <label for="title">Título</label>
+      <input type="text" name="title" placeholder="Ex: Dragonball">
+
+      <label for="title">Autor</label>
+      <input type="text" name="author" placeholder="Ex: Akira Toriyama">
+
+      <label for="title">Ano de Publicação</label>
+      <input type="month" name="publish_year">
+
+      <button type="submit">Adicionar</button>
+      <button type="reset">Resetar</button>
+    </form>
     <table>
       <tr>
         <th>ID</th>
         <th>Titulo</th>
         <th>Autor</th>
         <th>Ano de publicação</th>
-        <th>Ações</th>
       </tr>
       <% if (data) {%>
         <% data.forEach(row => { %>
@@ -20,7 +32,7 @@
             <td><%= row.id %></td>
             <td><%= row.title %></td>
             <td><%= row.author %></td>
-            <td><%= row.publish_year.getFullYear() %></td>
+            <td><%= row.publish_year.getMonth() %> <%= row.publish_year.getFullYear() %></td>
             <td>
               <button>Editar</button>
               <button>Remover</button>
