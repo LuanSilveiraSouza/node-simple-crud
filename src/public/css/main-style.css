@@ -20,6 +20,12 @@ form.add-manga {
   align-self: center;
 }
 
+form.add-manga h1 {
+  text-align: center;
+  color: var(--color-dark);
+  font-size: 1.8rem;
+}
+
 .form-label {
   font-size: 1.5rem;
   text-align: justify;
@@ -76,4 +82,51 @@ form .form-btn:hover {
 table {
   margin: 0 5%;
   flex: 3;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+table tr {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+table tr:first-child {
+  margin-bottom: 5%;
+}
+
+table tr:not(:first-child) {
+  margin-bottom: 3%;
+  border-bottom: 1px solid var(--color-dark);
+  padding-bottom: 2%; 
+}
+
+table tr th {
+  font-size: 1.2rem;
+  text-align: justify;
+}
+
+table .table-item-actions {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+table .table-item-actions a {
+  cursor: pointer;
+  color: var(--color-light);
+  background-color: var(--color-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  height: 2rem;
+  width: 5rem;
+  border: none;
+  border-radius: 0;
+  transition: all 0.3s;
+}
+
+table .table-item-actions a:hover {
+  background-color: var(--color-blue-dark);
 }

@@ -9,6 +9,8 @@
 <body>
   <main>
     <form action="/manga/add" method="POST" class="add-manga">
+      <h1>Adicionar Mangá</h1>
+
       <label for="title" class="form-label">Título</label>
       <input type="text" name="title" placeholder="Ex: Dragonball" class="form-input">
 
@@ -25,20 +27,18 @@
     </form>
     <table>
       <tr>
-        <th>ID</th>
-        <th>Titulo</th>
+        <th>Título</th>
         <th>Autor</th>
         <th>Ano de publicação</th>
       </tr>
       <% if (data) {%>
       <% data.forEach(row => { %>
       <tr>
-        <td><%= row.id %></td>
         <td><%= row.title %></td>
         <td><%= row.author %></td>
-        <td><%= row.publish_year.getMonth() + 1 %> <%= row.publish_year.getFullYear() %></td>
-        <td>
-          <button>Editar</button>
+        <td><%= row.publish_year.getMonth() + 1 %>/<%= row.publish_year.getFullYear() %></td>
+        <td class="table-item-actions">
+          <a>Editar</a>
           <a href="/manga/delete/<%= row.id %>">Remover</a>
         </td>
       </tr>
