@@ -11,7 +11,7 @@ main {
   padding: 5% 1%;
 }
 
-form.add-manga {
+form.add-form {
   margin: 0 5%;
 
   display: flex;
@@ -20,7 +20,7 @@ form.add-manga {
   align-self: center;
 }
 
-form.add-manga h1 {
+form.add-form h1 {
   text-align: center;
   color: var(--color-dark);
   font-size: 1.8rem;
@@ -79,11 +79,14 @@ form .form-btn:hover {
   background-color: var(--color-blue-dark);
 }
 
+div.data {
+  overflow: auto;
+  height: 100%;
+  flex: 3;
+}
+
 table {
   margin: 0 5%;
-  flex: 3;
-  height: 100%;
-  overflow-y: scroll;
 }
 
 table tr {
@@ -102,7 +105,7 @@ table tr:not(:first-child) {
 }
 
 table tr th {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   text-align: justify;
 }
 
@@ -130,3 +133,56 @@ table .table-item-actions a {
 table .table-item-actions a:hover {
   background-color: var(--color-blue-dark);
 }
+
+.edit-form {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-form form {
+  height: 70%;
+  width: 30%;
+  background-color: var(--color-gray-light);
+  display: flex;
+  flex-direction: column;
+  padding: 3%;
+}
+
+.edit-form .close-btn {
+  align-self: flex-start;
+  margin-top: 5%;
+  height: 5%;
+  width: 5%;
+  cursor: pointer;
+  color: var(--color-light);
+  background-color: var(--color-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 0;
+}
+
+.edit-form .close-btn:hover {
+  background-color: var(--color-blue-dark);
+}
+
+.edit-form form h1 {
+  color: var(--color-dark);
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.edit-form form input:last-child {
+  padding: 10% 0;
+}
+
+

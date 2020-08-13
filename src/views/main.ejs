@@ -8,7 +8,7 @@
 
 <body>
   <main>
-    <form action="/manga/add" method="POST" class="add-manga">
+    <form action="/manga/add" method="POST" class="add-form">
       <h1>Adicionar Mangá</h1>
 
       <label for="title" class="form-label">Título</label>
@@ -25,27 +25,68 @@
         <button type="reset" class="form-btn">Resetar</button>
       </div>
     </form>
-    <table>
-      <tr>
-        <th>Título</th>
-        <th>Autor</th>
-        <th>Ano de publicação</th>
-      </tr>
-      <% if (data) {%>
-      <% data.forEach(row => { %>
-      <tr>
-        <td><%= row.title %></td>
-        <td><%= row.author %></td>
-        <td><%= row.publish_year.getMonth() + 1 %>/<%= row.publish_year.getFullYear() %></td>
-        <td class="table-item-actions">
-          <a>Editar</a>
-          <a href="/manga/delete/<%= row.id %>">Remover</a>
-        </td>
-      </tr>
-      <% }) %>
-      <% } %>
-    </table>
+    <div class="data">
+      <table>
+        <tr>
+          <th>Título</th>
+          <th>Autor</th>
+          <th>Ano de publicação</th>
+        </tr>
+        <% if (data) {%>
+        <% data.forEach(row => { %>
+        <tr>
+          <td><%= row.title %></td>
+          <td><%= row.author %></td>
+          <td><%= row.publish_year.getMonth() + 1 %>/<%= row.publish_year.getFullYear() %></td>
+          <td class="table-item-actions">
+            <a onclick="openModal()">Editar</a>
+            <a href="/manga/delete/<%= row.id %>">Remover</a>
+          </td>
+        </tr>
+        <% }) %>
+        <% } %>
+      </table>
+    </div>
   </main>
+  <div class="edit-form" id="edit-form">
+    <form action="/manga/add" method="POST">
+      <h1>Editar Mangá</h1>
+
+      <label for="title" class="form-label">Título</label>
+      <input type="text" name="title" placeholder="Ex: Dragonball" class="form-input">
+
+      <label for="title" class="form-label">Autor</label>
+      <input type="text" name="author" placeholder="Ex: Akira Toriyama" class="form-input">
+
+      <label for="title" class="form-label">Ano de Publicação</label>
+      <input type="month" name="publish_year" class="form-input">
+
+      <div class="form-btn-group">
+        <button type="submit" class="form-btn">Atualizar</button>
+        <button type="reset" class="form-btn">Resetar</button>
+      </div>
+    </form>
+    <button class="close-btn" onclick="closeModal()">X</button>
+  </div>
+
+  <script>
+    const modal = document.querySelector('#edit-form');
+    closeModal();
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+
+    function openModal() {
+      modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+  </script>
 </body>
 
 </html>
