@@ -1,5 +1,15 @@
 :root {
-  --color-background-light: #CCC;
+  --color-light: #FCF7F8;
+  --color-dark: #000501;
+  --color-gray-light: #E7EAEE;
+  --color-gray: #CED3DC;
+  --color-gray-dark: #B7C0CC;
+  --color-red-light: #FF1F4B;
+  --color-red: #FF0035;
+  --color-red-dark: #CC0029;
+  --color-blue-light: #3775D2;
+  --color-blue: #275DAD;
+  --color-blue-dark: #225096;
 }
 
 * {
@@ -7,4 +17,5 @@
   margin: 0;
   padding: 0;
   font-family: Segoe UI,SegoeUI,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 16px;
 }

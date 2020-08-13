@@ -1,4 +1,79 @@
 body {
   min-height: 100vh;
-  background-color: var(--color-background-light);
+  background-color: var(--color-gray);
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+
+  padding: 5% 1%;
+}
+
+form.add-manga {
+  margin: 0 5%;
+
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-self: center;
+}
+
+.form-label {
+  font-size: 1.5rem;
+  text-align: justify;
+  color: var(--color-dark);
+  margin-bottom: 3%;
+}
+
+form .form-label:not(:first-child) {
+  margin-top: 5%;
+}
+
+form .form-input {
+  padding: 3%;
+  border: solid 1px var(--color-dark);
+  background-color: var(--color-light);
+  color: var(--color-dark);
+  transition: background-color 0.25s;
+  border-radius: 0;
+}
+
+form .form-input:focus {
+  background-color: var(--color-red);
+  color: var(--color-light);
+} 
+
+form .form-input:focus::placeholder {
+  color: var(--color-light);
+}
+
+form .form-btn-group {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 5% 0;
+}
+
+form .form-btn {
+  margin-top: 5%;
+  cursor: pointer;
+  color: var(--color-light);
+  background-color: var(--color-blue);
+  height: 3rem;
+  width: 7rem;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 0;
+  transition: all 0.3s;
+}
+
+form .form-btn:hover {
+  background-color: var(--color-blue-dark);
+}
+
+table {
+  margin: 0 5%;
+  flex: 3;
 }
