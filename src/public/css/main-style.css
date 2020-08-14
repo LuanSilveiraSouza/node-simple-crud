@@ -180,9 +180,3 @@ table .table-item-actions a:hover {
   font-size: 1.5rem;
   text-align: center;
 }
-
-.edit-form form input:last-child {
-  padding: 10% 0;
-}
-
-

@@ -33,13 +33,14 @@
           <th>Ano de publicação</th>
         </tr>
         <% if (data) {%>
-        <% data.forEach(row => { %>
+        <% function hello() { console.log('HELLO'); } %>
+        <% data.forEach((row, i) => { %>
         <tr>
           <td><%= row.title %></td>
           <td><%= row.author %></td>
           <td><%= row.publish_year.getMonth() + 1 %>/<%= row.publish_year.getFullYear() %></td>
           <td class="table-item-actions">
-            <a onclick="openModal()">Editar</a>
+            <a onclick="openModal('<%= row.id %>')">Editar</a>
             <a href="/manga/delete/<%= row.id %>">Remover</a>
           </td>
         </tr>
@@ -49,17 +50,17 @@
     </div>
   </main>
   <div class="edit-form" id="edit-form">
-    <form action="/manga/add" method="POST">
+    <form action="/manga/update" method="POST" id="form-update">
       <h1>Editar Mangá</h1>
 
       <label for="title" class="form-label">Título</label>
-      <input type="text" name="title" placeholder="Ex: Dragonball" class="form-input">
+      <input type="text" name="title" placeholder="Ex: Dragonball" class="form-input" id="title">
 
       <label for="title" class="form-label">Autor</label>
-      <input type="text" name="author" placeholder="Ex: Akira Toriyama" class="form-input">
+      <input type="text" name="author" placeholder="Ex: Akira Toriyama" class="form-input" id="author">
 
       <label for="title" class="form-label">Ano de Publicação</label>
-      <input type="month" name="publish_year" class="form-input">
+      <input type="month" name="publish_year" class="form-input" id="publish_year">
 
       <div class="form-btn-group">
         <button type="submit" class="form-btn">Atualizar</button>
@@ -71,20 +72,52 @@
 
   <script>
     const modal = document.querySelector('#edit-form');
+    const formUpdate = document.querySelector('#form-update');
+    const inputTitle = document.querySelector('#title');
+    const inputAuthor = document.querySelector('#author');
+    const inputPublishYear = document.querySelector('#publish_year');
+
     closeModal();
 
-    window.onclick = function(event) {
+    window.onclick = function (event) {
       if (event.target == modal) {
         closeModal();
       }
     }
 
-    function openModal() {
+    function openModal(id = 0) {
+      const URL_TO_FETCH = `http://localhost:3000/manga/${id}`;
+      fetch(URL_TO_FETCH, {
+        method: 'get'
+      })
+        .then(function (response) {
+          response.json().then(function (data) {
+            const manga = data.manga[0];
+            inputTitle.value = manga.title;
+            inputAuthor.value = manga.author;
+            inputPublishYear.value = formatDate(new Date(manga.publish_year));
+            formUpdate.action = `/manga/update/${manga.id}`;
+          });
+        })
+        .catch(function (err) { alert(err); });
+
       modal.style.display = 'flex';
     }
 
     function closeModal() {
       modal.style.display = 'none';
+    }
+
+    function formatDate(date = new Date()) {
+      let result = '';
+      result += `${date.getFullYear()}-`;
+
+      if (date.getMonth() < 9) {
+        result += `0${date.getMonth()+1}`;
+      } else {
+        result += `${date.getMonth()+1}`;
+      }
+      return result;
     }
   </script>
 </body>
