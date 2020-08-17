@@ -17,7 +17,6 @@ form.add-form {
   display: flex;
   flex-direction: column;
   flex: 1;
-  align-self: center;
 }
 
 form.add-form h1 {
@@ -53,6 +52,11 @@ form .form-input:focus {
 
 form .form-input:focus::placeholder {
   color: var(--color-light);
+}
+
+form .form-input.textarea {
+  resize: none;
+  max-lines: 5;
 }
 
 form .form-btn-group {

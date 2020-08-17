@@ -12,10 +12,10 @@ class Manga {
 		return data.rows;
 	}
 
-	static async create(title = '', author = '', publish_year = new Date()) {
+	static async create(title = '', author = '', synopsis = '', publish_year = new Date()) {
 		await db.query(
-			'INSERT INTO manga(title, author, publish_year) VALUES($1, $2, $3)',
-			[title, author, publish_year]
+			'INSERT INTO manga(title, author, synopsis, publish_year) VALUES($1, $2, $3, $4)',
+			[title, author, synopsis, publish_year]
 		);
 	}
 
@@ -23,10 +23,10 @@ class Manga {
 		await db.query('DELETE FROM manga WHERE id = $1', [id]);
 	}
 
-	static async updateOne(id, title, author, publish_year) {
+	static async updateOne(id, title, author, synopsis, publish_year) {
 		await db.query(
-			'UPDATE manga SET title = $1, author = $2, publish_year = $3 WHERE id = $4',
-			[title, author, publish_year, id]
+			'UPDATE manga SET title = $1, author = $2, synopsis = $3, publish_year = $4 WHERE id = $5',
+			[title, author, synopsis, publish_year, id]
 		);
 	}
 }

@@ -1,9 +1,21 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%- include('components/head.ejs') %>
+  <link rel="stylesheet" type="text/css" href="/css/manga-detail.css">
   <title><%= manga.title %></title>
 </head>
 <body>
+  <header>
+    <h1><%= manga.title %></h1>
+
+    <h2><%= manga.author %>, <%= manga.publish_year.getMonth() + 1 %>/<%= manga.publish_year.getFullYear() %></h2>
+  </header>
+  <main>
+    <div id="main-content">
+      <h1>Sinopse: </h1>
+      <p><%= manga.synopsis %></p>
+    </div>
+  </main>
 </body>
 </html>

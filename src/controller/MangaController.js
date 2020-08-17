@@ -21,12 +21,12 @@ class PokemonController {
 	}
 
 	async create(req, res) {
-    const { title, author, publish_year } = req.body;
+    const { title, author, synopsis, publish_year } = req.body;
 
     const publish_year_date = new Date(publish_year);
     publish_year_date.setTime(publish_year_date.getTime() + (1000 * 60 * 60 * 24))
     
-    await Manga.create(title, author, publish_year_date);
+    await Manga.create(title, author, synopsis, publish_year_date);
 
     res.redirect('/manga');
   }
@@ -41,12 +41,12 @@ class PokemonController {
 
   async update(req, res) {
     const { id } = req.params;
-    const { title, author, publish_year } = req.body;
+    const { title, author, synopsis, publish_year } = req.body;
 
     const publish_year_date = new Date(publish_year);
     publish_year_date.setTime(publish_year_date.getTime() + (1000 * 60 * 60 * 24))
 
-    await Manga.updateOne(id, title, author, publish_year_date);
+    await Manga.updateOne(id, title, author, synopsis, publish_year_date);
 
     res.redirect('/manga');
   }
