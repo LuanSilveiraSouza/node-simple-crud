@@ -2,8 +2,8 @@
 
 <head>
   <%- include('components/head.ejs') %>
-  <link rel="stylesheet" type="text/css" href="/css/main-style.css">
-  <title>Lista de Mangás</title>
+  <link rel="stylesheet" type="text/css" href="/css/manga-list.css">
+  <title>YourManga</title>
 </head>
 
 <body>
@@ -40,7 +40,7 @@
           <td><%= row.author %></td>
           <td><%= row.publish_year.getMonth() + 1 %>/<%= row.publish_year.getFullYear() %></td>
           <td class="table-item-actions">
-            <a onclick="openModal('<%= row.id %>')">Editar</a>
+            <a href="/manga/<%= row.id %>">Ver mais</a>
             <a href="/manga/delete/<%= row.id %>">Remover</a>
           </td>
         </tr>

@@ -5,8 +5,11 @@ class PokemonController {
   async find(req, res) {
     const { id } = req.params;
 
-    const manga = await Manga.findOne(id)
-    res.json({manga});
+    const manga = await Manga.findOne(id);
+
+    res.render('manga-detail', {
+      manga
+    });
   }
 
 	async list(req, res) {

@@ -1,0 +1,70 @@
+body {
+  min-height: 100vh;
+  background-color: var(--color-gray-light);
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  height: 100%;
+}
+
+main div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  
+  height: 30%;
+}
+
+main div h1 {
+  font-size: 2.5rem;
+  color: var(--color-dark);
+}
+
+main div h2 {
+  color: var(--color-blue-dark);
+}
+
+main div .btn-group {
+  display: flex;
+  flex-direction: row;
+}
+
+.btn-group a {
+  text-decoration: none;
+  border: solid 1px var(--color-light);
+  height: 3rem;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s all;
+  transform: skew(10deg);
+}
+
+.btn-group a p {
+  transform: skew(-10deg);
+  font-size: 1.3rem;
+}
+
+a.login-btn {
+  background-color: var(--color-blue);
+  color: var(--color-light);
+}
+
+a.login-btn:hover {
+  background-color: var(--color-blue-dark);
+}
+
+a.register-btn {
+  background-color: var(--color-red);
+  color: var(--color-light);
+}
+
+a.register-btn:hover {
+  background-color: var(--color-red-dark);
+}
