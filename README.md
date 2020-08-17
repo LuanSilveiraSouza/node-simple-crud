@@ -81,6 +81,9 @@ $ cd node-simple-crud
 # Install Packages
 $ npm install
 
+# See .example.env and create a .env file with your database credentials and app port
+$ touch .env
+
 # Run Application
 $ npm start
 ```

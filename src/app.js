@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -13,4 +14,4 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 app.use(routes);
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
