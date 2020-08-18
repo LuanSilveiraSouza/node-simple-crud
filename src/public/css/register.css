@@ -1,0 +1,117 @@
+body {
+  min-height: 100vh;
+  background-color: var(--color-gray-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body a {
+  position: absolute;
+  top: 1%;
+  left: 5%;
+  text-decoration: none;
+  color: var(--color-red);
+}
+
+body a:hover, body a:active {
+  color: var(--color-red-light);
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  height: 100%;
+}
+
+main div {
+  height: 100%;
+}
+
+main div h1 {
+  font-size: 2.5rem;
+  color: var(--color-dark);
+}
+
+.add-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.add-form > * {
+  margin-bottom: 5%;
+}
+
+.add-form button {
+  height: 3rem;
+  width: 80%;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-blue);
+  color: var(--color-light);
+  border: solid 1px var(--color-light);
+  cursor: pointer;
+  transform: skew(10deg);
+  transition: all 0.5s;
+}
+
+.add-form button p {
+  transform: skew(-10deg);
+  font-size: 1.5rem;
+}
+
+.add-form button:hover {
+  background-color: var(--color-blue-dark);
+}
+
+.add-form .btn-reset {
+  background-color: var(--color-red);
+  width: 10%;
+}
+
+.add-form .btn-reset:hover {
+  background-color: var(--color-red-dark);
+}
+
+.add-form div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-right: 1%;
+}
+
+.form-label {
+  font-size: 1.2rem;
+  color: var(--color-dark);
+  margin-bottom: 5px;
+}
+
+.form-input {
+  width: 100%;
+  height: 3rem;
+  padding-left: 5%;
+  border: solid 1px var(--color-light);
+  background-color: var(--color-light);
+  transition: all 0.3s;
+}
+
+.form-input:focus, .form-input:hover {
+  background-color: var(--color-red-light);
+  color: var(--color-light);
+}
+
+.form-input:focus::placeholder,
+.form-input:hover::placeholder {
+  color: var(--color-light);
+}

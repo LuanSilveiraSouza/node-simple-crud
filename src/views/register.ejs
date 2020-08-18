@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('components/head.ejs') %>
+  <link rel="stylesheet" type="text/css" href="/css/register.css">
+  <title>YourManga</title>
+</head>
+
+<body>
+  <a href="/"><--</a>
+  <main>
+    <img src="images/bookshelf.png" alt="Estante de livros">
+    <div>
+      <form action="/user/add" method="post" class="add-form">
+        <div>
+          <h1>Cadastre-se!</h1>
+          <button type="reset" class="btn-reset">
+            <p>X</p>
+          </button>
+        </div>
+
+        <div>
+          <div class="input-group">
+            <label for="title" class="form-label">Nome</label>
+            <input type="text" name="name" placeholder="João Pedro" class="form-input">
+          </div>
+          <div class="input-group">
+            <label for="title" class="form-label">Nome de Usuário</label>
+            <input type="text" name="username" placeholder="JPZin" class="form-input">
+          </div>
+        </div>
+
+        <label for="title" class="form-label" style="margin-bottom: 5px;">E-mail</label>
+        <input type="email" name="email" placeholder="jpzin@gmail.com" class="form-input">
+
+        <div>
+          <div class="input-group">
+            <label for="title" class="form-label">Senha</label>
+            <input type="password" name="password" placeholder="No mínimo 5 dígitos!" class="form-input">
+          </div>
+          <div class="input-group">
+            <label for="title" class="form-label">Repita sua senha</label>
+            <input type="password" name="repeat_password" placeholder="Sem Cntrl+C Cntrl+V!" class="form-input"
+              onpaste="return false" ondrop="return false">
+          </div>
+        </div>
+
+        <button type="submit">
+          <p>Cadastrar</p>
+        </button>
+      </form>
+    </div>
+  </main>
+</body>
+
+</html>
