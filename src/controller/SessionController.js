@@ -1,4 +1,5 @@
 const { validationResult } = require('express-validator');
+const bcrypt = require('bcrypt');
 
 const db = require('../database');
 
@@ -21,14 +22,18 @@ class SessionController {
     const errors = validationResult(req).errors;
 
     if(errors.length > 0) {
-      res.redirect('/register');
+      console.log(errors);
+      return res.redirect('/register');
     }
 
-    /*
+    const saltRounds = 8;
+
+    const hashed_password = await bcrypt.hash(password, saltRounds);
+    
     await db.query('INSERT INTO "user"(name, username, password, email, role) VALUES($1, $2, $3, $4, $5)',
-    [name, username, password, email, 'USER'])
-    */
-    res.redirect('/login');
+    [name, username, hashed_password, email, 'USER'])
+
+    return res.redirect('/login');
   }
 }
 

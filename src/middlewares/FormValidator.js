@@ -1,14 +1,28 @@
-const { check, body } = require('express-validator');
+const { body } = require('express-validator');
 
 class FormValidator {
 	validateUserRegister() {
 		return [
-			check('email', 'Email inválido').not().isEmpty().isEmail().normalizeEmail(),
-			check('password', 'A senha deve conter no mínimo 5 caracteres')
+			body('email', 'Email inválido')
+				.exists()
 				.not()
 				.isEmpty()
-        .isLength({ min: 5 }),
-      check('password', 'As senhas não coincidem').trim().equals(body('repeat_password'))
+				.isEmail()
+				.normalizeEmail(),
+      body('password', 'A senha deve conter no mínimo 5 caracteres')
+        .exists()
+				.not()
+				.isEmpty()
+				.isLength({ min: 5 }),
+			body('password', 'As senhas não coincidem')
+				.trim()
+				.custom(async (password, { req }) => {
+          const { repeat_password } = req.body;
+
+          if(password !== repeat_password) {
+            throw new Error();
+          }
+        })
 		];
 	}
 }
