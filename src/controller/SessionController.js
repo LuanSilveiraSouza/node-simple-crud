@@ -4,56 +4,80 @@ const bcrypt = require('bcrypt');
 const db = require('../database');
 
 class SessionController {
-  renderLanding(req, res) {
-    res.render('landing');
-  }
+	renderLanding(req, res) {
+		res.render('landing');
+	}
 
-  renderLogin(req, res) {
-    res.render('login');
-  }
+	renderLogin(req, res) {
+		res.render('login');
+	}
 
-  renderRegister(req, res) {
-    res.render('register');
-  }
+	renderRegister(req, res) {
+		res.render('register');
+	}
 
-  async registerUser(req, res) {
-    const { name, username, password, repeat_password, email} = req.body;
+	async registerUser(req, res) {
+		const { name, username, password, repeat_password, email } = req.body;
 
-    const errors = validationResult(req).errors;
+		const errors = validationResult(req).errors;
 
-    if(errors.length > 0) {
-      console.log(errors);
+		if (errors.length > 0) {
+			console.log(errors);
+			return res.redirect('/register');
+    }
+    
+    const results = await db.query(
+			'SELECT username, email FROM "user" WHERE username = $1 OR email = $2',
+			[username, email]
+		);
+    const userExists = results.rows[0];
+
+    if(userExists) {
+      console.log('Nome de Usuário ou Email já cadastrado');
       return res.redirect('/register');
     }
 
-    const saltRounds = 8;
+		const saltRounds = 8;
 
-    const hashed_password = await bcrypt.hash(password, saltRounds);
-    
-    await db.query('INSERT INTO "user"(name, username, password, email, role) VALUES($1, $2, $3, $4, $5)',
-    [name, username, hashed_password, email, 'USER'])
+		const hashed_password = await bcrypt.hash(password, saltRounds);
 
-    return res.redirect('/login');
-  }
+    /*
+		await db.query(
+			'INSERT INTO "user"(name, username, password, email, role) VALUES($1, $2, $3, $4, $5)',
+			[name, username, hashed_password, email, 'USER']
+		);*/
 
-  async loginUser(req, res) {
+		return res.redirect('/login');
+	}
+
+	async loginUser(req, res) {
     const { username, password } = req.body;
+    
+    const errors = validationResult(req).errors;
 
-    const results = await db.query('SELECT username, password from "user" WHERE username = $1', [username]);
-    const user = results.rows[0];
-
-    if(!user) {
-      console.log('Usuário não encontrado');
-    } else {
-      const password_match = await bcrypt.compare(password, user.password);
-      
-      if(password_match) {
-        console.log('Autenticado');
-      }
+		if (errors.length > 0) {
+			console.log(errors);
+			return res.redirect('/login');
     }
 
-    return res.redirect('/login');
-  }
+		const results = await db.query(
+			'SELECT username, password from "user" WHERE username = $1',
+			[username]
+		);
+		const user = results.rows[0];
+
+		if (!user) {
+			console.log('Usuário não encontrado');
+		} else {
+			const password_match = await bcrypt.compare(password, user.password);
+
+			if (password_match) {
+				console.log('Autenticado');
+			}
+		}
+
+		return res.redirect('/login');
+	}
 }
 
 module.exports = new SessionController();
