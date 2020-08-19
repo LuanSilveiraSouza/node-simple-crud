@@ -6,6 +6,7 @@ const FormValidator = require('./middlewares/FormValidator');
 
 routes.get('/', SessionController.renderLanding);
 routes.get('/login', SessionController.renderLogin);
+routes.post('/user/login', SessionController.loginUser);
 routes.get('/register', SessionController.renderRegister);
 routes.post(
 	'/user/add',

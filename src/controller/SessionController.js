@@ -35,6 +35,25 @@ class SessionController {
 
     return res.redirect('/login');
   }
+
+  async loginUser(req, res) {
+    const { username, password } = req.body;
+
+    const results = await db.query('SELECT username, password from "user" WHERE username = $1', [username]);
+    const user = results.rows[0];
+
+    if(!user) {
+      console.log('Usuário não encontrado');
+    } else {
+      const password_match = await bcrypt.compare(password, user.password);
+      
+      if(password_match) {
+        console.log('Autenticado');
+      }
+    }
+
+    return res.redirect('/login');
+  }
 }
 
 module.exports = new SessionController();
