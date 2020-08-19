@@ -126,3 +126,8 @@ main div h1 {
 .form-input:hover::placeholder {
   color: var(--color-light);
 }
+
+.add-form a {
+  position: inherit;
+  align-self: flex-end;
+}
