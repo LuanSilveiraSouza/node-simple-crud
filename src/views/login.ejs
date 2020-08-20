@@ -38,7 +38,10 @@
     <form action="/user/password" method="POST" id="form-password" class="add-form">
       <button class="close-btn btn-reset" onclick="closeModal()"><p>X</p></button>
 
-      <h1>Informe o e-mail de sua conta e enviaremos a confirmação de sua nova senha.</h1>
+      <h1>Informe o nome de usuário e e-mail de sua conta e enviaremos a confirmação de sua nova senha.</h1>
+
+      <label for="username" class="form-label">Nome de Usuário</label>
+      <input type="text" name="username" class="form-input" required>
 
       <label for="title" class="form-label">E-mail</label>
       <input type="text" name="email" class="form-input" required>

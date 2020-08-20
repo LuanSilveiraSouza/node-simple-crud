@@ -149,8 +149,8 @@ main div h1 {
 }
 
 .show form {
-  width: 50%;
-  height: 60%;
+  width: 40%;
+  height: 70%;
   background-color: var(--color-gray-light);
   padding: 2%;
 }
@@ -171,4 +171,5 @@ main div h1 {
 
 .show form .form-btn {
   width: 30%;
+  margin: 0;
 }

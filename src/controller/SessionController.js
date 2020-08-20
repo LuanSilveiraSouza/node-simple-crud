@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const db = require('../database');
+const MailSender = require('../utils/MailSender');
 
 class SessionController {
 	renderLanding(req, res) {
@@ -44,11 +45,10 @@ class SessionController {
 
 		const hashed_password = await bcrypt.hash(password, saltRounds);
 
-    /*
 		await db.query(
 			'INSERT INTO "user"(name, username, password, email, role) VALUES($1, $2, $3, $4, $5)',
 			[name, username, hashed_password, email, 'USER']
-		);*/
+		);
 
 		return res.redirect('/login');
 	}
@@ -84,7 +84,45 @@ class SessionController {
 		}
 
 		return res.redirect('/login');
-	}
+  }
+  
+  async forgetPassword(req, res) {
+    const { username, email } = req.body;
+
+    const results = await db.query(
+			'SELECT id, username, email from "user" WHERE username = $1 AND email = $2',
+			[username, email]
+		);
+		const user = results.rows[0];
+
+    if (!user) {
+			console.log('Usuário não encontrado');
+		} else {
+			const mailCredentials = {
+        host: process.env.MAIL_HOST,
+        port: process.env.MAIL_PORT,
+        auth: {
+          user: process.env.MAIL_USER,
+          pass: process.env.MAIL_PASSWORD
+        }
+      };
+
+      const mailSender = new MailSender(mailCredentials);
+
+      const mailOptions = {
+        from: process.env.MAIL_EMAIL,
+        to: user.email,
+        subject: 'Recuperação de Senha',
+        text: `${user.username}, ${user.email}`
+      }
+
+      const response = await mailSender.forgetPasswordMail(mailOptions);
+
+      console.log(response);
+		}
+
+    return res.redirect('/login');
+  }
 }
 
 module.exports = new SessionController();

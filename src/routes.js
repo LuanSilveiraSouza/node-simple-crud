@@ -18,6 +18,7 @@ routes.post(
 	FormValidator.validateUserRegister(),
 	SessionController.registerUser
 );
+routes.post('/user/password', SessionController.forgetPassword);
 
 routes.get('/manga', Auth.verifyToken, MangaController.list);
 routes.get('/manga/:id', Auth.verifyToken, MangaController.find);
