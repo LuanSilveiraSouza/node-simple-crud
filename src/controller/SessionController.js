@@ -64,7 +64,7 @@ class SessionController {
     }
 
 		const results = await db.query(
-			'SELECT username, password from "user" WHERE username = $1',
+			'SELECT id, username, password from "user" WHERE username = $1',
 			[username]
 		);
 		const user = results.rows[0];
@@ -75,7 +75,7 @@ class SessionController {
 			const password_match = await bcrypt.compare(password, user.password);
 
 			if (password_match) {
-        const token = await jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: 3600 });
+        const token = await jwt.sign({ id: user.id, username }, process.env.JWT_SECRET, { expiresIn: 3600 });
 
         res.cookie('token', token, { httpOnly: true });
         

@@ -21,7 +21,7 @@ class Auth {
       }
 
       req.username = result.username;
-
+      req.userId = result.id;
     });
 
     next();
