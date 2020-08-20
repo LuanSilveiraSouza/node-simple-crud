@@ -19,6 +19,12 @@ routes.post(
 	SessionController.registerUser
 );
 routes.post('/user/password', SessionController.forgetPassword);
+routes.get('/recoverpassword/:token', SessionController.recoverPassword);
+routes.post(
+	'/user/updatepassword',
+	FormValidator.validateUserRegister(),
+	SessionController.updatePassword
+);
 
 routes.get('/manga', Auth.verifyToken, MangaController.list);
 routes.get('/manga/:id', Auth.verifyToken, MangaController.find);

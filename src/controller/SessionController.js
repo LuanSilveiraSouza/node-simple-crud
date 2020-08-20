@@ -21,7 +21,7 @@ class SessionController {
 	}
 
 	async registerUser(req, res) {
-		const { name, username, password, repeat_password, email } = req.body;
+		const { name, username, password, email } = req.body;
 
 		const errors = validationResult(req).errors;
 
@@ -90,7 +90,7 @@ class SessionController {
     const { username, email } = req.body;
 
     const results = await db.query(
-			'SELECT id, username, email from "user" WHERE username = $1 AND email = $2',
+			'SELECT username, email from "user" WHERE username = $1 AND email = $2',
 			[username, email]
 		);
 		const user = results.rows[0];
@@ -98,6 +98,10 @@ class SessionController {
     if (!user) {
 			console.log('Usuário não encontrado');
 		} else {
+      const token = await jwt.sign({ username, email }, process.env.JWT_SECRET, { expiresIn: 600 });
+
+      console.log(token);
+
 			const mailCredentials = {
         host: process.env.MAIL_HOST,
         port: process.env.MAIL_PORT,
@@ -116,12 +120,57 @@ class SessionController {
         text: `${user.username}, ${user.email}`
       }
 
-      const response = await mailSender.forgetPasswordMail(mailOptions);
+      //const response = await mailSender.forgetPasswordMail(mailOptions);
 
-      console.log(response);
+      //console.log(response);
 		}
 
     return res.redirect('/login');
+  }
+
+  async recoverPassword(req, res) {
+    const { token } = req.params;
+
+    if(!token) {
+      console.log('Token not provided');
+      return res.redirect('/login');
+    }
+
+    jwt.verify(token, process.env.JWT_SECRET, (error, result) => {
+      if(error) {
+        console.log('Token expired');
+        return res.redirect('/login');
+      }
+      
+      if(!result) {
+        console.log('Invalid Token');
+        return res.redirect('/login');
+      }
+
+      return res.render('recover-password', {username: result.username, email: result.email});
+    });
+  }
+
+  async updatePassword(req, res) {
+    const { email, password } = req.body;
+
+    const errors = validationResult(req).errors;
+
+		if (errors.length > 0) {
+			console.log(errors);
+			return res.redirect('/login');
+    }
+
+    const saltRounds = 8;
+
+		const hashed_password = await bcrypt.hash(password, saltRounds);
+
+		await db.query(
+			'UPDATE "user" SET password = $1 WHERE email = $2',
+			[hashed_password, email]
+		);
+
+		return res.redirect('/login');
   }
 }
 
