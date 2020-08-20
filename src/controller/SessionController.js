@@ -90,7 +90,7 @@ class SessionController {
     const { username, email } = req.body;
 
     const results = await db.query(
-			'SELECT username, email from "user" WHERE username = $1 AND email = $2',
+			'SELECT name, username, email from "user" WHERE username = $1 AND email = $2',
 			[username, email]
 		);
 		const user = results.rows[0];
@@ -99,8 +99,6 @@ class SessionController {
 			console.log('Usuário não encontrado');
 		} else {
       const token = await jwt.sign({ username, email }, process.env.JWT_SECRET, { expiresIn: 600 });
-
-      console.log(token);
 
 			const mailCredentials = {
         host: process.env.MAIL_HOST,
@@ -117,12 +115,15 @@ class SessionController {
         from: process.env.MAIL_EMAIL,
         to: user.email,
         subject: 'Recuperação de Senha',
-        text: `${user.username}, ${user.email}`
+        html: `<h1>Olá, ${user.name}</h1>
+        <p>O link para recuperar a senha de sua conta no YourManga é este:</p>
+        <a href="http://localhost:${process.env.PORT || 3000}/recoverpassword/${token}">Recuperar Senha</a>
+        <p>Caso você não tenha solicitado a recuperação de senha, sugerimos imediatamente a troca de senha.</p>
+        <br/>
+        <p><strong>Atenciosamente, Equipe YourManga</strong></p>`
       }
 
-      //const response = await mailSender.forgetPasswordMail(mailOptions);
-
-      //console.log(response);
+      const response = await mailSender.forgetPasswordMail(mailOptions);
 		}
 
     return res.redirect('/login');
