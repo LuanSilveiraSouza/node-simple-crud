@@ -131,3 +131,44 @@ main div h1 {
   position: inherit;
   align-self: flex-end;
 }
+
+.hide {
+  display: none;
+}
+
+.show {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.show form {
+  width: 50%;
+  height: 60%;
+  background-color: var(--color-gray-light);
+  padding: 2%;
+}
+
+.show form h1 {
+  font-size: 1.5rem;
+  color: var(--color-dark);
+}
+
+.show form .close-btn {
+  width: 10%;
+  align-self: flex-end;
+}
+
+.show form .form-label {
+  font-size: 1.2rem;
+}
+
+.show form .form-btn {
+  width: 30%;
+}

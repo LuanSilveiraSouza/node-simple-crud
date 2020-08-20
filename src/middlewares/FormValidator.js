@@ -1,7 +1,7 @@
 const { body } = require('express-validator');
 
 class FormValidator {
-	validateUserRegister() {
+	static validateUserRegister() {
 		return [
 			body('email', 'Email inválido')
 				.exists()
@@ -26,7 +26,7 @@ class FormValidator {
 		];
 	}
 
-	validateUserLogin() {
+	static validateUserLogin() {
 		return [
 			body('username', 'Usuário ou Email não informados').exists().notEmpty(),
 			body('password', 'A senha deve conter no mínimo 5 caracteres')
@@ -38,4 +38,4 @@ class FormValidator {
 	}
 }
 
-module.exports = new FormValidator();
+module.exports = FormValidator;

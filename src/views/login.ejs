@@ -29,11 +29,45 @@
         <button type="submit">
           <p>Login</p>
         </button>
-        
-        <a href="#">Esqueci minha senha</a>
+
+        <a onclick="openModal()">Esqueci minha senha</a>
       </form>
     </div>
   </main>
+  <div class="hide" id="modal">
+    <form action="/user/password" method="POST" id="form-password" class="add-form">
+      <button class="close-btn btn-reset" onclick="closeModal()"><p>X</p></button>
+
+      <h1>Informe o e-mail de sua conta e enviaremos a confirmação de sua nova senha.</h1>
+
+      <label for="title" class="form-label">E-mail</label>
+      <input type="text" name="email" class="form-input" required>
+
+      <button type="submit" class="form-btn" onclick="closeModal()"><p>Enviar</p></button>
+    </form>
+  </div>
+
+  <script>
+    const modal = document.querySelector('#modal');
+
+    modal.classList.add('hide');
+
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+
+    function openModal() {
+      modal.classList.remove('hide');
+      modal.classList.add('show');
+    }
+
+    function closeModal() {
+      modal.classList.remove('show');
+      modal.classList.add('hide');
+    }
+  </script>
 </body>
 
 </html>
