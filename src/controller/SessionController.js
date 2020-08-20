@@ -1,10 +1,13 @@
+require('dotenv').config();
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const db = require('../database');
 
 class SessionController {
 	renderLanding(req, res) {
+    res.clearCookie('token');
 		res.render('landing');
 	}
 
@@ -52,7 +55,7 @@ class SessionController {
 
 	async loginUser(req, res) {
     const { username, password } = req.body;
-    
+
     const errors = validationResult(req).errors;
 
 		if (errors.length > 0) {
@@ -72,7 +75,11 @@ class SessionController {
 			const password_match = await bcrypt.compare(password, user.password);
 
 			if (password_match) {
-				console.log('Autenticado');
+        const token = await jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: 3600 });
+
+        res.cookie('token', token, { httpOnly: true });
+        
+        return res.redirect('/manga');
 			}
 		}
 
